@@ -101,7 +101,7 @@ public class FractalLoginHandler : MonoBehaviour
 	private void OnFinishedVerification(ResultResponse resultResponse)
 	{
 		StopCoroutine(poolingCoroutine);
-		FractalUtils.Log("User authenticated");
+		FractalUtils.Log("User authenticated : " + resultResponse.userId);
         onVerified?.Invoke();
     }
 
