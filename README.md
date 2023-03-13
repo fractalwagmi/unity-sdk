@@ -2,6 +2,10 @@
 
 <img src="https://i.ibb.co/qN9SZ3p/fractal-unity.png"  width="40%"></img>
 
+**Please use the latest build from the release page. Follow the Unity SDK section of [Fractal Developers](https://developers.fractal.is/unity-sdk/introduction) for full integration guide.**
+
+## About
+
 Fractal Unity SDK is designed to get your Unity project up and running with Fractal services in a few easy steps. The package provides all of the Client APIs for interacting with the user's wallet - this includes signing in with Fractal,reading the user's coins and NFTs, and signing on-chain transactions.
 
 ## Requirements
@@ -23,6 +27,8 @@ On WebGL builds the authentication prompt is displayed in a popup without exitin
 
 ## Changelog
 
+Fractal SDK follows Semantic Versioning `(major.minor.patch)`. Any potential breaking changes will always cause a major version increment, non-breaking new features will cause a minor version increment, and bugfixes will cause a patch version increment.
+
 A full version changelog is available in the [changelog](/CHANGELOG.md) file.
 
 
@@ -39,9 +45,9 @@ folders include the necessary extensions to handle the web browser's authenticat
 
 5. In `Build Settings > Player Settings`, select FractalSDK as your WebGL Template.
 
-## Getting Started & Starter Kits
+## Getting Started
 
-Follow step-by-step instructions and video tutorials in Unity SDK section of [Fractal Developers](https://developers.fractal.is/react-sdk)
+Follow step-by-step instructions and video tutorials in Unity SDK section of [Fractal Developers](https://developers.fractal.is/unity-sdk/introduction)
 
 The integration process is straightforward. First, add authentication prefab to any scene in your project, and then interact with client endpoints as needed using `FractalClient`. SDK requires no 3rd party dependencies, and no additional configuration except entering your project details is necessary.
 
