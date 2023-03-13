@@ -1,6 +1,6 @@
 # Fractal Unity SDK
 
-<img src="https://i.ibb.co/qN9SZ3p/fractal-unity.png"  width="40%"></img>
+<img src="https://i.ibb.co/3dwk9Qg/fractal-unity.png"  width="40%"></img>
 
 **Please use the latest build from the release page. Follow the Unity SDK section of [Fractal Developers](https://developers.fractal.is/unity-sdk/introduction) for full integration guide.**
 
