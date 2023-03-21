@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/FractalSampleScene.unity
+    guid: b1b94793ba03a4388a517a7dcddb5b0a
   m_configObjects: {}

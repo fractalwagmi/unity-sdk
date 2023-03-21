@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.fractalwagmi.fractalsdk": {
-      "version": "file:FractalSDK",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.unity.collab-proxy": {
       "version": "2.0.0",
       "depth": 0,

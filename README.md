@@ -1,6 +1,6 @@
 # Fractal Unity SDK
 
-<img src="https://i.ibb.co/3dwk9Qg/fractal-unity.png"  width="40%"></img>
+<img src="https://i.ibb.co/3dwk9Qg/fractal-unity.png" width="40%"></img>
 
 **Please use the latest build from the release page. Follow the Unity SDK section of [Fractal Developers](https://developers.fractal.is/unity-sdk/introduction) for full integration guide.**
 
@@ -56,4 +56,5 @@ The integration process is straightforward. First, add authentication prefab to 
 - Please submit your feedback using this [form](https://forms.gle/YwhYubuxGGTrYGeaA) after integration.
 
 - If you run into any problems or have a feature request, open up a [new issue](https://github.com/fractalwagmi/unity-sdk/issues/new) in the repository. Please follow the issue/request template.
-  
+
+- Contact us on [Discord](https://discord.gg/fractalwagmi)
