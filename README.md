@@ -2,6 +2,8 @@
 
 <img src="https://i.ibb.co/3dwk9Qg/fractal-unity.png" width="40%"></img>
 
+![buildtest](https://github.com/fractalwagmi/unity-sdk/actions/workflows/main.yml/badge.svg)
+
 **Please use the latest build from the release page. Follow the Unity SDK section of [Fractal Developers](https://developers.fractal.is/unity-sdk/introduction) for full integration guide.**
 
 ## About
