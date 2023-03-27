@@ -25,7 +25,7 @@ On WebGL builds the authentication prompt is displayed in a popup without exitin
 
 ## Example
 
-[Open WebGL Demo](https://react-sdk-demo.fractalstaging.com/)
+[Open WebGL Demo](https://fractalwagmi.github.io/unity-sdk-demo/)
 
 ## Changelog
 
