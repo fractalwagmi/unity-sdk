@@ -84,8 +84,8 @@ GameObject:
   - component: {fileID: 8400277366977001677}
   - component: {fileID: 8400277366977001674}
   - component: {fileID: 8400277366977001675}
+  - component: {fileID: 7871298222350365767}
   - component: {fileID: 8400277366977001676}
-  - component: {fileID: 8400277366977001673}
   m_Layer: 5
   m_Name: FractalOnrampButton
   m_TagString: Untagged
@@ -153,6 +153,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7871298222350365767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400277366977001678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf88285d5eb9f4718a2538ee3200b0bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onrampButton: {fileID: 8400277366977001676}
+  clientId: <YOUR_CLIENT_ID_HERE>
 --- !u!114 &8400277366977001676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,31 +223,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8400277366977001673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8400277366977001678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 136333fcdddd04b4b94344744617f420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loginButton: {fileID: 8400277366977001676}
-  authUserText: {fileID: 8400277367433793996}
-  clientId: <YOUR_CLIENT_ID_HERE>
-  scopes: 020000000100000000000000
-  onStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onVerified:
-    m_PersistentCalls:
-      m_Calls: []
-  onError:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8400277367433793998
 GameObject:
   m_ObjectHideFlags: 0
