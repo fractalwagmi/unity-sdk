@@ -57,6 +57,8 @@ namespace FractalSDK.Core
             }
 
             webRequest.SetRequestHeader("Content-Type", "application/json");
+            webRequest.SetRequestHeader("Accept", "application/json");
+
             webRequest.uploadHandler = new UploadHandlerRaw(bodyPayload);
             webRequest.downloadHandler = new DownloadHandlerBuffer();
 
@@ -80,7 +82,8 @@ namespace FractalSDK.Core
                     return (new Response
                     {
                         StatusCode = webRequest.responseCode,
-                        Error = webRequest.error
+                        Error = webRequest.error,
+                        Data = webRequest.downloadHandler.text,
                     });
             }
         }

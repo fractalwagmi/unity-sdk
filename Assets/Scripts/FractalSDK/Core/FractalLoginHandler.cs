@@ -165,27 +165,9 @@ namespace FractalSDK.Core
             OnFailedVerification();
         }
 
-        private async void OnFinishedVerification(ResultResponse resultResponse)
+        private void OnFinishedVerification(ResultResponse resultResponse)
         {
             FractalUtils.Log("User Authenticated: " + resultResponse.userId);
-
-            try
-            {
-                UserInfo user = await FractalClient.Instance.GetUser();
-                authUserText.text = user.username;
-            }
-            catch (FractalNotAuthenticated)
-            {
-                Debug.Log("User is not authenticated");
-                throw;
-            }
-            catch (FractalAPIRequestError)
-            {
-                Debug.Log("Device is offline");
-                throw;
-            }
-
-
             onVerified?.Invoke();
         }
 

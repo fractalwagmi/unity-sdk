@@ -7,8 +7,8 @@ namespace FractalSDK.Core
     {
         public FractalAPIRequestError() { }
 
-        public FractalAPIRequestError(long code)
-            : base($"HTTP Status Code: {code}")
+        public FractalAPIRequestError(long code, string message = null)
+            : base($"Error Code: {code}, Message: {message}")
         {
 
         }

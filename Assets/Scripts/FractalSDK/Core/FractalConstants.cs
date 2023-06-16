@@ -10,6 +10,7 @@
         public const string GetInfo = "/sdk/v1/wallet/info";
         public const string GetCoins = "/sdk/v1/wallet/coins";
         public const string GetItems = "/sdk/v1/wallet/items";
+        public const string SignTransaction = "/sdk/transaction/authorize";
 
         //Fractal Sign In Button Contents
         public const string ButtonLoading = "LOADING...";

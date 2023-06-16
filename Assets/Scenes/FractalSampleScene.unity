@@ -410,6 +410,34 @@ PrefabInstance:
       propertyPath: clientId
       value: bdC2xwuaveghwlDIj3OhDRQ9gbm8KPTX
       objectReference: {fileID: 0}
+    - target: {fileID: 8400277366977001673, guid: 569f4c87e778f4bef8d2f6ba1845fb61, type: 3}
+      propertyPath: onVerified.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400277366977001673, guid: 569f4c87e778f4bef8d2f6ba1845fb61, type: 3}
+      propertyPath: onVerified.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400277366977001673, guid: 569f4c87e778f4bef8d2f6ba1845fb61, type: 3}
+      propertyPath: onVerified.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400277366977001673, guid: 569f4c87e778f4bef8d2f6ba1845fb61, type: 3}
+      propertyPath: onVerified.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400277366977001673, guid: 569f4c87e778f4bef8d2f6ba1845fb61, type: 3}
+      propertyPath: onVerified.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: fetchData
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400277366977001673, guid: 569f4c87e778f4bef8d2f6ba1845fb61, type: 3}
+      propertyPath: onVerified.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FetchUser, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8400277366977001673, guid: 569f4c87e778f4bef8d2f6ba1845fb61, type: 3}
+      propertyPath: onVerified.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8400277366977001677, guid: 569f4c87e778f4bef8d2f6ba1845fb61, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

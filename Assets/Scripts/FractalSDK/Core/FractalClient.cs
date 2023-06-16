@@ -138,6 +138,7 @@ namespace FractalSDK.Core
                 {
                     try
                     {
+                        Debug.Log(result.Data);
                         UserInfo resultResponse = JsonUtility.FromJson<UserInfo>(result.Data);
                         return resultResponse;
                     }
@@ -169,6 +170,7 @@ namespace FractalSDK.Core
                     Key = "Authorization",
                     Value = "Bearer " + _bearerToken
                 };
+
 
                 const string requestUrl = FractalConstants.APIRootURL + FractalConstants.GetCoins;
                 Response result = await RestClient.Get(requestUrl, new List<RequestHeader> { authorizationHeader });
@@ -227,6 +229,55 @@ namespace FractalSDK.Core
                 else
                 {
                     throw new FractalAPIRequestError(result.StatusCode);
+                }
+            }
+            else
+            {
+                throw new FractalNotAuthenticated();
+            }
+        }
+
+
+        /// <summary>
+        /// Generates a url and code where players can approve a transaction signing request.
+        /// </summary>
+        /// <param name="_unsignedMessage">Base58 encoded unsigned message</param>
+        /// <returns>URL and Code to sign and verify the transaction.</returns>
+        public async Task<TransactionUrl> SignTransaction(string _unsignedMessage)
+        {
+            if (_bearerToken != null)
+            {
+                RequestHeader authorizationHeader = new()
+                {
+                    Key = "Authorization",
+                    Value = "Bearer " + _bearerToken
+                };
+
+                UnsignedTransaction requestBody = new()
+                {
+                    unsignedMessage = _unsignedMessage
+                };
+
+                const string requestUrl = FractalConstants.APIRootURL + FractalConstants.SignTransaction;
+                Debug.Log(requestUrl);
+                var result = await RestClient.Post(requestUrl, JsonUtility.ToJson(requestBody), new List<RequestHeader> { authorizationHeader });
+
+                if (result.StatusCode == 200)
+                {
+                    try
+                    {
+                        TransactionUrl resultResponse = JsonUtility.FromJson<TransactionUrl>(result.Data);
+                        return resultResponse;
+                    }
+                    catch
+                    {
+                        throw new FractalInvalidResponse();
+                    }
+                }
+                else
+                {
+                    UnsignedTransactionError error = JsonUtility.FromJson<UnsignedTransactionError>(result.Data);
+                    throw new FractalAPIRequestError(error.code, error.message);
                 }
             }
             else
