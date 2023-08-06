@@ -78,7 +78,7 @@ namespace FractalSDK.Core
         /// </summary>
         private async void InitAuth()
         {
-            FractalCodeChallange pair = new FractalCodeChallange();
+            FractalCodeChallenge pair = new FractalCodeChallenge();
             pair.Init();
 
             onStarted?.Invoke();
@@ -101,7 +101,7 @@ namespace FractalSDK.Core
         /// On WebGL a Fractal plugin is used to open the authentication in popup.
         /// </summary>
         /// <param name="authUrl">Authentication URL to open.</param>
-        private void OpenAuth(AuthResponse authUrl, FractalCodeChallange codeChallange)
+        private void OpenAuth(AuthResponse authUrl, FractalCodeChallenge codeChallange)
         {
             authUserText.text = FractalConstants.ButtonLoading;
             FractalUtils.Log(codeChallange.CodeVerifier);
