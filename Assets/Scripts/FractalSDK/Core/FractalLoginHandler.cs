@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using FractalSDK.Enums;
@@ -77,16 +78,20 @@ namespace FractalSDK.Core
         /// </summary>
         private async void InitAuth()
         {
+            FractalCodeChallange pair = new FractalCodeChallange();
+            pair.Init();
+
             onStarted?.Invoke();
             try
             {
-                AuthResponse authUrl = await FractalClient.Instance.GetAuthUrl();
-                OpenAuth(authUrl);
+                AuthResponse authUrl = await FractalClient.Instance.GetAuthUrl(pair.CodeChallenge);
+                FractalUtils.Log(authUrl.approvalUrl);
+                OpenAuth(authUrl, pair);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 onError?.Invoke();
-                Debug.Log(ex);
+                FractalUtils.Log(ex.ToString());
             }
 
         }
@@ -96,23 +101,29 @@ namespace FractalSDK.Core
         /// On WebGL a Fractal plugin is used to open the authentication in popup.
         /// </summary>
         /// <param name="authUrl">Authentication URL to open.</param>
-        private void OpenAuth(AuthResponse authUrl)
+        private void OpenAuth(AuthResponse authUrl, FractalCodeChallange codeChallange)
         {
             authUserText.text = FractalConstants.ButtonLoading;
-            _loginCode = authUrl.code;
-
+            FractalUtils.Log(codeChallange.CodeVerifier);
             switch (Application.platform)
             {
                 case RuntimePlatform.WebGLPlayer:
-                    OpenFractalPopup(authUrl.url);
+                    OpenFractalPopup(authUrl.approvalUrl);
                     break;
 
                 default:
-                    Application.OpenURL(authUrl.url);
-                    LoginPooler(_loginCode);
+                    Process[] pname = Process.GetProcessesByName("fractal");
+                    if (pname.Length != 0) { 
+                        Application.OpenURL("fractal://signinv2/approve?challenge=" + codeChallange.CodeChallenge);
+                        LoginPooler(codeChallange.CodeVerifier);
+                    }
+                    else {
+                        Application.OpenURL(authUrl.approvalUrl);
+                        LoginPooler(codeChallange.CodeVerifier);
+                    }
                     break;
+                    
             }
-
         }
 
         /// <summary>
@@ -153,12 +164,15 @@ namespace FractalSDK.Core
                     try
                     {
                         ResultResponse result = await FractalClient.Instance.GetAuthResult(code);
+                        FractalUtils.Log(result.ToString());
                         OnFinishedVerification(result);
                         return;
                     }
-                    catch
+                    catch(Exception err)
                     {
-                        await Task.Delay(1000);
+                        FractalUtils.Log(err.ToString());
+                        await Task.Delay(2000);
+                        authUserText.text = FractalConstants.ButtonLoading;
                     }
                 }
             }

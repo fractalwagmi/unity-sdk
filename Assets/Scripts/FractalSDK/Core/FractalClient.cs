@@ -48,25 +48,34 @@ namespace FractalSDK.Core
         /// <summary>
         /// Returns a URL and code which are used to authenticate players.
         /// </summary>
-        public async Task<AuthResponse> GetAuthUrl()
+        public async Task<AuthResponse> GetAuthUrl(string codeChallenge)
         {
             if (_clientId != null)
             {
-                NameValueCollection requestQuery = new() { { "clientId", _clientId } };
+                List<string> scopesString = new List<string>();
                 foreach (Scope scope in _scopes)
                 {
-                    requestQuery.Add("scope", FractalUtils.ToEnumString(scope));
+                    scopesString.Add(FractalUtils.ToEnumString(scope));
                 }
 
-                string requestUrl = FractalConstants.AuthAPIRootURL + FractalConstants.GetURL + FractalUtils.ToQueryString(requestQuery);
-                Response result = await RestClient.Get(requestUrl);
+
+                RequestUrl requestBody = new()
+                {
+                    clientId = _clientId,
+                    codeChallenge = codeChallenge,
+                    scopes = scopesString
+            };
+
+                const string requestUrl = FractalConstants.AuthAPIRootURL + FractalConstants.GetURL;
+                Debug.Log(JsonUtility.ToJson(requestBody));
+                Response result = await RestClient.Post(requestUrl, JsonUtility.ToJson(requestBody));
 
                 if (result.StatusCode == 200)
                 {
                     try
                     {
-                        AuthResponse authUrlResponse = JsonUtility.FromJson<AuthResponse>(result.Data);
-                        return authUrlResponse;
+                        AuthResponse resultResponse = JsonUtility.FromJson<AuthResponse>(result.Data);
+                        return resultResponse;
                     }
                     catch
                     {
@@ -88,12 +97,11 @@ namespace FractalSDK.Core
         /// Returns the status of a player auth request.
         /// </summary>
         /// <param name="code">A authentication code to verify.</param>
-        public async Task<ResultResponse> GetAuthResult(string code)
+        public async Task<ResultResponse> GetAuthResult(string verifier)
         {
             GetResult requestBody = new()
             {
-                clientId = _clientId,
-                code = code
+                verifier = verifier
             };
 
             const string requestUrl = FractalConstants.AuthAPIRootURL + FractalConstants.Verify;
@@ -105,6 +113,7 @@ namespace FractalSDK.Core
                 {
                     ResultResponse resultResponse = JsonUtility.FromJson<ResultResponse>(result.Data);
                     _bearerToken = resultResponse.bearerToken;
+                    FractalUtils.Log(resultResponse.ToString());
                     return resultResponse;
                 }
                 catch

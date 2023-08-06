@@ -7,5 +7,6 @@ namespace FractalSDK.Models.Api
     {
         public string bearerToken;
         public string userId;
+        public string refreshToken;
     }
 }
