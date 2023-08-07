@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 using FractalSDK.Enums;
 using FractalSDK.Models.Api;
@@ -67,8 +69,7 @@ namespace FractalSDK.Core
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 SetupFractalEvents();
-            }
-
+            }            
         }
 
 
@@ -77,16 +78,19 @@ namespace FractalSDK.Core
         /// </summary>
         private async void InitAuth()
         {
+            FractalCodeChallenge pair = new FractalCodeChallenge();
+            pair.Init();
+
             onStarted?.Invoke();
             try
             {
-                AuthResponse authUrl = await FractalClient.Instance.GetAuthUrl();
-                OpenAuth(authUrl);
+                AuthResponse authUrl = await FractalClient.Instance.GetAuthUrl(pair.CodeChallenge);
+                OpenAuth(authUrl, pair);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 onError?.Invoke();
-                Debug.Log(ex);
+                FractalUtils.Log(ex.ToString());
             }
 
         }
@@ -95,24 +99,29 @@ namespace FractalSDK.Core
         /// Opens Fractal authentication URL in the systems default browser.
         /// On WebGL a Fractal plugin is used to open the authentication in popup.
         /// </summary>
-        /// <param name="authUrl">Authentication URL to open.</param>
-        private void OpenAuth(AuthResponse authUrl)
+        /// <param name="codeChallange">Authentication URL to open.</param>
+        private void OpenAuth(AuthResponse authUrl, FractalCodeChallenge codeChallenge)
         {
             authUserText.text = FractalConstants.ButtonLoading;
-            _loginCode = authUrl.code;
-
             switch (Application.platform)
             {
                 case RuntimePlatform.WebGLPlayer:
-                    OpenFractalPopup(authUrl.url);
+                    OpenFractalPopup(authUrl.approvalUrl);
                     break;
 
                 default:
-                    Application.OpenURL(authUrl.url);
-                    LoginPooler(_loginCode);
+                    Process[] pname = Process.GetProcessesByName("fractal");
+                    if (pname.Length != 0) { 
+                        Application.OpenURL("fractal://signinv2/approve?challenge=" + codeChallenge.CodeChallenge);
+                        LoginPooler(codeChallenge.CodeVerifier);
+                    }
+                    else {
+                        Application.OpenURL(authUrl.approvalUrl);
+                        LoginPooler(codeChallenge.CodeVerifier);
+                    }
                     break;
+                    
             }
-
         }
 
         /// <summary>
@@ -152,13 +161,14 @@ namespace FractalSDK.Core
                 {
                     try
                     {
-                        ResultResponse result = await FractalClient.Instance.GetAuthResult(code);
+                        ResultResponse result = await FractalClient.Instance.GetAuthResult(Convert.ToBase64String(Encoding.UTF8.GetBytes(code)));
                         OnFinishedVerification(result);
                         return;
                     }
                     catch
                     {
-                        await Task.Delay(1000);
+                        await Task.Delay(2000);
+                        authUserText.text = FractalConstants.ButtonLoading;
                     }
                 }
             }
@@ -168,6 +178,7 @@ namespace FractalSDK.Core
         private void OnFinishedVerification(ResultResponse resultResponse)
         {
             FractalUtils.Log("User Authenticated: " + resultResponse.userId);
+            FetchUsername();
             onVerified?.Invoke();
         }
 
@@ -176,6 +187,18 @@ namespace FractalSDK.Core
             FractalUtils.Log("Session verification failed or expired.");
             authUserText.text = FractalConstants.ButtonLogin;
             onError?.Invoke();
+        }
+
+        private async void FetchUsername()
+        {
+            try { 
+                UserInfo userInfo = await FractalClient.Instance.GetUser();
+                authUserText.text = userInfo.username;
+            }
+            catch
+            {
+                throw new FractalInvalidResponse();
+            }
         }
     }
 }
