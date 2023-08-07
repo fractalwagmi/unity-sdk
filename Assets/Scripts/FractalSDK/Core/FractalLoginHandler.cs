@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 using FractalSDK.Enums;
 using FractalSDK.Models.Api;
@@ -68,8 +69,7 @@ namespace FractalSDK.Core
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 SetupFractalEvents();
-            }
-
+            }            
         }
 
 
@@ -85,7 +85,6 @@ namespace FractalSDK.Core
             try
             {
                 AuthResponse authUrl = await FractalClient.Instance.GetAuthUrl(pair.CodeChallenge);
-                FractalUtils.Log(authUrl.approvalUrl);
                 OpenAuth(authUrl, pair);
             }
             catch (Exception ex)
@@ -100,11 +99,10 @@ namespace FractalSDK.Core
         /// Opens Fractal authentication URL in the systems default browser.
         /// On WebGL a Fractal plugin is used to open the authentication in popup.
         /// </summary>
-        /// <param name="authUrl">Authentication URL to open.</param>
-        private void OpenAuth(AuthResponse authUrl, FractalCodeChallenge codeChallange)
+        /// <param name="codeChallange">Authentication URL to open.</param>
+        private void OpenAuth(AuthResponse authUrl, FractalCodeChallenge codeChallenge)
         {
             authUserText.text = FractalConstants.ButtonLoading;
-            FractalUtils.Log(codeChallange.CodeVerifier);
             switch (Application.platform)
             {
                 case RuntimePlatform.WebGLPlayer:
@@ -114,12 +112,12 @@ namespace FractalSDK.Core
                 default:
                     Process[] pname = Process.GetProcessesByName("fractal");
                     if (pname.Length != 0) { 
-                        Application.OpenURL("fractal://signinv2/approve?challenge=" + codeChallange.CodeChallenge);
-                        LoginPooler(codeChallange.CodeVerifier);
+                        Application.OpenURL("fractal://signinv2/approve?challenge=" + codeChallenge.CodeChallenge);
+                        LoginPooler(codeChallenge.CodeVerifier);
                     }
                     else {
                         Application.OpenURL(authUrl.approvalUrl);
-                        LoginPooler(codeChallange.CodeVerifier);
+                        LoginPooler(codeChallenge.CodeVerifier);
                     }
                     break;
                     
@@ -163,14 +161,12 @@ namespace FractalSDK.Core
                 {
                     try
                     {
-                        ResultResponse result = await FractalClient.Instance.GetAuthResult(code);
-                        FractalUtils.Log(result.ToString());
+                        ResultResponse result = await FractalClient.Instance.GetAuthResult(Convert.ToBase64String(Encoding.UTF8.GetBytes(code)));
                         OnFinishedVerification(result);
                         return;
                     }
-                    catch(Exception err)
+                    catch
                     {
-                        FractalUtils.Log(err.ToString());
                         await Task.Delay(2000);
                         authUserText.text = FractalConstants.ButtonLoading;
                     }
@@ -182,6 +178,7 @@ namespace FractalSDK.Core
         private void OnFinishedVerification(ResultResponse resultResponse)
         {
             FractalUtils.Log("User Authenticated: " + resultResponse.userId);
+            FetchUsername();
             onVerified?.Invoke();
         }
 
@@ -190,6 +187,18 @@ namespace FractalSDK.Core
             FractalUtils.Log("Session verification failed or expired.");
             authUserText.text = FractalConstants.ButtonLogin;
             onError?.Invoke();
+        }
+
+        private async void FetchUsername()
+        {
+            try { 
+                UserInfo userInfo = await FractalClient.Instance.GetUser();
+                authUserText.text = userInfo.username;
+            }
+            catch
+            {
+                throw new FractalInvalidResponse();
+            }
         }
     }
 }

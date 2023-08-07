@@ -19,7 +19,7 @@ public class FractalCodeChallenge
     {
         const string chars = "abcdefghijklmnopqrstuvwxyz123456789";
         var random = new Random();
-        var nonce = new char[32];
+        var nonce = new char[128];
         for (int i = 0; i < nonce.Length; i++)
         {
             nonce[i] = chars[random.Next(chars.Length)];
@@ -32,8 +32,15 @@ public class FractalCodeChallenge
     {
         using var sha256 = SHA256.Create();
         var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
-        var b64Hash = Convert.ToBase64String(hash);
-        return b64Hash;
+        return Base64UrlEncode(hash);
+    }
+
+    private static string Base64UrlEncode(byte[] input)
+    {
+        return Convert.ToBase64String(input)
+          .Replace('+', '-') // replace URL unsafe characters with safe ones
+          .Replace('/', '_') // replace URL unsafe characters with safe ones
+          .Replace("=", ""); // no padding
     }
 
 }

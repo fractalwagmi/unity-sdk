@@ -13,7 +13,7 @@
         public const string SignTransaction = "/sdk/transaction/authorize";
 
         //Fractal Sign In Button Contents
-        public const string ButtonLoading = "OndraFractal";
+        public const string ButtonLoading = "LOADING...";
         public const string ButtonLogin = "SIGN IN WITH FRACTAL";
     }
 }

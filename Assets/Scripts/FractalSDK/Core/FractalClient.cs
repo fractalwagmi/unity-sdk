@@ -113,7 +113,6 @@ namespace FractalSDK.Core
                 {
                     ResultResponse resultResponse = JsonUtility.FromJson<ResultResponse>(result.Data);
                     _bearerToken = resultResponse.bearerToken;
-                    FractalUtils.Log(resultResponse.ToString());
                     return resultResponse;
                 }
                 catch
@@ -147,7 +146,6 @@ namespace FractalSDK.Core
                 {
                     try
                     {
-                        Debug.Log(result.Data);
                         UserInfo resultResponse = JsonUtility.FromJson<UserInfo>(result.Data);
                         return resultResponse;
                     }
