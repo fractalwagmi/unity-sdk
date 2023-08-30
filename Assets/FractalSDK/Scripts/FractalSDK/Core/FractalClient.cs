@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FractalSDK.Enums;
 using FractalSDK.Models;
 using FractalSDK.Models.Api;
+using UnityEditor;
 using UnityEngine;
 
 namespace FractalSDK.Core
@@ -33,15 +34,24 @@ namespace FractalSDK.Core
             }
         }
 
-        private string _clientId;
-
+        private FractalConfig _config;
         private Scope[] _scopes;
 
         private string _bearerToken;
         
-        public void Init(string clientId, Scope[] scopes)
+        public void Init(Scope[] scopes)
         {
-            _clientId = clientId;
+            
+            string[] guids = AssetDatabase.FindAssets("FractalConfig");
+            foreach (string guid in guids)
+            {
+                string entry = AssetDatabase.GUIDToAssetPath(guid);
+                if (entry.EndsWith(name + ".asset"))
+                {
+                    _config = AssetDatabase.LoadAssetAtPath<FractalConfig>(entry);
+                    break;
+                }
+            }            
             _scopes = scopes;
         }
 
@@ -50,7 +60,7 @@ namespace FractalSDK.Core
         /// </summary>
         public async Task<AuthResponse> GetAuthUrl(string codeChallenge)
         {
-            if (_clientId != null)
+            if (_config.clientId != null)
             {
                 List<string> scopesString = new List<string>();
                 foreach (Scope scope in _scopes)
@@ -61,7 +71,7 @@ namespace FractalSDK.Core
 
                 RequestUrl requestBody = new()
                 {
-                    clientId = _clientId,
+                    clientId = _config.clientId,
                     codeChallenge = codeChallenge,
                     scopes = scopesString
             };
@@ -89,7 +99,7 @@ namespace FractalSDK.Core
             }
             else
             {
-                throw new FractalInvalidClientId(_clientId);
+                throw new FractalInvalidClientId(_config.clientId);
             }
         }
         

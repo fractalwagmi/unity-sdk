@@ -9,8 +9,6 @@ namespace FractalSDK.Core
 {
     public static class FractalUtils
     {
-        
-        
         public static Action<string> logCallback;
         public static Action<string> logErrorCallback;
         /// <summary>
@@ -25,7 +23,7 @@ namespace FractalSDK.Core
             }
             else
             {
-                Debug.Log("<color=#F2059F>[FRACTAL]</color> " + message);
+                Debug.Log($"<color=#F2059F>[FRACTAL]</color> {message}");
             }
         }
 
@@ -37,7 +35,7 @@ namespace FractalSDK.Core
             }
             else
             {
-                Debug.LogError("<color=#F2059F>[FRACTAL]</color> " + message);
+                Debug.LogError($"<color=#F2059F>[FRACTAL]</color> {message}");
             }
         }
         

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using FractalSDK.Enums;
 using FractalSDK.Models.Api;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -21,9 +23,6 @@ namespace FractalSDK.Core
 
         [Tooltip("Text mesh to show user's account e-mail.")]
         public TextMeshProUGUI authUserText;
-
-        [Tooltip("Game clientId you can obtain from Fstudio.")]
-        public string clientId;
 
         [Tooltip("Specify the scopes that the game will request from the API.")]
         public Scope[] scopes;
@@ -62,9 +61,10 @@ namespace FractalSDK.Core
 
         void Start()
         {
+            
             Button loginPrefab = loginButton.GetComponent<Button>();
             loginPrefab.onClick.AddListener(InitAuth);
-            FractalClient.Instance.Init(clientId, scopes);
+            FractalClient.Instance.Init(scopes);
 
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
