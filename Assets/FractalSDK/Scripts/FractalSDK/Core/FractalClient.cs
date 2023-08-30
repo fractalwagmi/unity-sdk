@@ -67,7 +67,7 @@ namespace FractalSDK.Core
             };
 
                 const string requestUrl = FractalConstants.AuthAPIRootURL + FractalConstants.GetURL;
-                Debug.Log(JsonUtility.ToJson(requestBody));
+                FractalUtils.Log(JsonUtility.ToJson(requestBody));
                 Response result = await RestClient.Post(requestUrl, JsonUtility.ToJson(requestBody));
 
                 if (result.StatusCode == 200)
@@ -266,7 +266,7 @@ namespace FractalSDK.Core
                 };
 
                 const string requestUrl = FractalConstants.APIRootURL + FractalConstants.SignTransaction;
-                Debug.Log(requestUrl);
+                FractalUtils.Log(requestUrl);
                 var result = await RestClient.Post(requestUrl, JsonUtility.ToJson(requestBody), new List<RequestHeader> { authorizationHeader });
 
                 if (result.StatusCode == 200)

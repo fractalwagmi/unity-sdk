@@ -9,15 +9,38 @@ namespace FractalSDK.Core
 {
     public static class FractalUtils
     {
+        
+        
+        public static Action<string> logCallback;
+        public static Action<string> logErrorCallback;
         /// <summary>
         /// Logging feature for fractal output, all messages are tagged with Fractal flag.
         /// </summary>
         /// <param name="message">Message to log into the Unity console.</param>
         public static void Log(string message)
         {
-            Debug.Log("<color=#F2059F>[FRACTAL]</color> " + message);
+            if (logCallback != null)
+            {
+                logCallback(message);
+            }
+            else
+            {
+                Debug.Log("<color=#F2059F>[FRACTAL]</color> " + message);
+            }
         }
 
+        public static void LogError(string message)
+        {
+            if (logErrorCallback != null)
+            {
+                logErrorCallback(message);
+            }
+            else
+            {
+                Debug.LogError("<color=#F2059F>[FRACTAL]</color> " + message);
+            }
+        }
+        
         /// <summary>
         /// Generates a Query string for API requests
         /// </summary>
