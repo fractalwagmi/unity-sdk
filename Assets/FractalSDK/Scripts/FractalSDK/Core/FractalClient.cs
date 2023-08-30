@@ -41,17 +41,25 @@ namespace FractalSDK.Core
         
         public void Init(Scope[] scopes)
         {
-            
-            string[] guids = AssetDatabase.FindAssets("FractalConfig");
+            const string name = "FractalConfig";
+            string[] guids = AssetDatabase.FindAssets(name);
+
+            string entry;
             foreach (string guid in guids)
             {
-                string entry = AssetDatabase.GUIDToAssetPath(guid);
+                entry = AssetDatabase.GUIDToAssetPath(guid);
                 if (entry.EndsWith(name + ".asset"))
                 {
                     _config = AssetDatabase.LoadAssetAtPath<FractalConfig>(entry);
                     break;
                 }
-            }            
+            }
+
+            if (_config == null)
+            {
+                FractalUtils.LogError("Configuration has not been found, create FractalConfig from Context menu");
+            }
+            
             _scopes = scopes;
         }
 

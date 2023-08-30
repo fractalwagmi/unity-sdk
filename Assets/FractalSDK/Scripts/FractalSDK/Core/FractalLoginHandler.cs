@@ -61,7 +61,6 @@ namespace FractalSDK.Core
 
         void Start()
         {
-            
             Button loginPrefab = loginButton.GetComponent<Button>();
             loginPrefab.onClick.AddListener(InitAuth);
             FractalClient.Instance.Init(scopes);
