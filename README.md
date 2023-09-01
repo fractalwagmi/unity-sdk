@@ -12,7 +12,7 @@ Fractal Unity SDK is designed to get your Unity project up and running with Frac
 
 ## Requirements
 
-Fractal SDK always targets the latest LTS version of **(Currently 2021.3.18f1)**. We recommend you use the LTS version of Unity to build projects that are in production or about to ship. However, you should not encounter any issues when integrating or migrating into any other versions of Unity above the targeted release.
+Fractal SDK always targets the latest LTS version of **(Currently 2022.3.8f1)**. We recommend you use the LTS version of Unity to build projects that are in production or about to ship. However, you should not encounter any issues when integrating or migrating into any other versions of Unity above the targeted release.
 
 ## Supported platforms
 - WebGL
