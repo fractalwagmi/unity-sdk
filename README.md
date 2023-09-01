@@ -4,7 +4,7 @@
 
 ![buildtest](https://github.com/fractalwagmi/unity-sdk/actions/workflows/main.yml/badge.svg)
 
-**Please use the latest build from the release page. Follow the Unity SDK section of [Fractal Developers](https://developers.fractal.is/unity-sdk/introduction) for full integration guide.**
+**Please use the latest build from the release page. Follow the Unity SDK section of [Fractal Developers](https://docs.fractal.is/unity-sdk/unity-sdk) for full integration guide.**
 
 ## About
 
