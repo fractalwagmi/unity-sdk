@@ -129,6 +129,7 @@ namespace FractalSDK.Core
         /// <param name="payload">Message received from the WebGL popup.</param>
         public async void HandlePopupMessage(string payload)
         {
+            FractalUtils.Log("Message from popup recieved" + payload);
             switch (payload){
                 case "PROJECT_APPROVED":
                     try
