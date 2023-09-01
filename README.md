@@ -4,7 +4,7 @@
 
 ![buildtest](https://github.com/fractalwagmi/unity-sdk/actions/workflows/main.yml/badge.svg)
 
-**Please use the latest build from the release page. Follow the Unity SDK section of [Fractal Developers](https://developers.fractal.is/unity-sdk/introduction) for full integration guide.**
+**Please use the latest build from the release page. Follow the Unity SDK section of [Fractal Developers](https://docs.fractal.is/unity-sdk/unity-sdk) for full integration guide.**
 
 ## About
 
@@ -49,7 +49,7 @@ folders include the necessary extensions to handle the web browser's authenticat
 
 ## Getting Started
 
-Follow step-by-step instructions and video tutorials in Unity SDK section of [Fractal Developers](https://developers.fractal.is/unity-sdk/introduction)
+Follow step-by-step instructions and video tutorials in Unity SDK section of [Fractal Developers](https://docs.fractal.is/unity-sdk/unity-sdk)
 
 The integration process is straightforward. First, add authentication prefab to any scene in your project, and then interact with client endpoints as needed using `FractalClient`. SDK requires no 3rd party dependencies, and no additional configuration except entering your project details is necessary.
 
