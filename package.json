@@ -1,0 +1,22 @@
+{
+    "name": "com.fractal.unitysdk",
+    "version": "0.5.0",
+    "displayName": "Fractal Unity SDK",
+    "description": "Get your Unity project up and running with Fractal services in a few easy steps.",
+    "documentationUrl": "https://docs.fractal.is/",
+    "changelogUrl": "https://github.com/fractalwagmi/unity-sdk/blob/main/CHANGELOG.md",
+    "licensesUrl": "https://github.com/fractalwagmi/unity-sdk/blob/main/LICENSE.md",
+    "keywords": [
+        "tools",
+        "integrate",
+        "launcher",
+        "tournaments",
+        "questing",
+        "crypto"
+    ],
+    "author": {
+        "name": "Fractal Wagmi Inc.",
+        "email": "developers@fractal.is",
+        "url": "https://www.fractal.is"
+    }
+}
