@@ -38,9 +38,9 @@ namespace FractalSDK.Core
 
         #endregion
 
-
         #region Externals
 
+#if !UNITY_SWITCH && !UNITY_PS4 && !UNITY_PS4 && !UNITY_XBOXONE
         //[External JS Call]
         [DllImport("__Internal")]
         private static extern void SetupFractalEvents();
@@ -52,6 +52,24 @@ namespace FractalSDK.Core
         //[External JS Call]
         [DllImport("__Internal")]
         private static extern void CloseFractalPopup();
+
+#else
+        private static void SetupFractalEvents()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void OpenFractalPopup(string url)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void CloseFractalPopup()
+        {
+            throw new NotImplementedException();
+        }
+
+#endif
 
         #endregion
 
